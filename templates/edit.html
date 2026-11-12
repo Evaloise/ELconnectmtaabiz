@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Contact | MtaaBiz</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6fb;
+            color: #263248;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #172554;
+            padding: 17px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .brand {
+            color: white;
+            font-size: 25px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .brand span {
+            color: #a78bfa;
+        }
+
+        .admin-label {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        /* MAIN CONTAINER */
+        .main-container {
+            max-width: 1050px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        /* PAGE HEADER */
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .breadcrumb-text {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb-text span {
+            color: #6d28d9;
+            font-weight: 600;
+        }
+
+        .page-heading h1 {
+            color: #172554;
+            font-size: 29px;
+            font-weight: 750;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* FORM CARD */
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid #edf0f5;
+            box-shadow: 0 8px 30px rgba(30,41,59,0.05);
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 23px;
+            border-bottom: 1px solid #edf0f5;
+            margin-bottom: 28px;
+        }
+
+        .form-icon {
+            width: 50px;
+            height: 50px;
+            background: #ede9fe;
+            color: #6d28d9;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .form-header h4 {
+            color: #172554;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .form-header p {
+            color: #94a3b8;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        /* FORM FIELDS */
+        .form-label {
+            color: #334155;
+            font-size: 13px;
+            font-weight: 650;
+            margin-bottom: 9px;
+        }
+
+        .form-control {
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            font-size: 14px;
+            color: #334155;
+            background: #ffffff;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.12);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group {
+            margin-bottom: 23px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        /* BUTTONS */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            padding-top: 25px;
+            border-top: 1px solid #edf0f5;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 11px 23px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-cancel:hover {
+            background: #e2e8f0;
+            color: #172554;
+        }
+
+        .btn-update {
+            background: #6d5bd0;
+            color: white;
+            padding: 11px 25px;
+            border-radius: 8px;
+            border: none;
+            font-size: 13px;
+            font-weight: 650;
+            transition: 0.3s;
+        }
+
+        .btn-update:hover {
+            background: #5145a8;
+            transform: translateY(-1px);
+        }
+
+        /* INFORMATION NOTE */
+        .info-note {
+            background: #f5f3ff;
+            border: 1px solid #ddd6fe;
+            border-radius: 9px;
+            padding: 14px 16px;
+            margin-top: 25px;
+            color: #5b4b9a;
+            font-size: 12px;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 600px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .main-container {
+                margin: 30px auto;
+                padding: 0 13px;
+            }
+
+            .page-heading h1 {
+                font-size: 24px;
+            }
+
+            .form-card {
+                padding: 22px 17px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .form-actions button,
+            .form-actions a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+
+        <a href="/show" class="brand">
+            Mtaa<span>Biz.</span>
+        </a>
+
+        <span class="admin-label">
+            Administrator Panel
+        </span>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+
+        <!-- PAGE HEADING -->
+        <div class="page-heading">
+
+            <div class="breadcrumb-text">
+                Dashboard / Contacts / <span>Edit Contact</span>
+            </div>
+
+            <h1>Edit Contact Information</h1>
+
+            <p>
+                Update customer information and keep your contact records accurate.
+            </p>
+
+        </div>
+
+
+        <!-- FORM CARD -->
+        <div class="form-card">
+
+            <div class="form-header">
+
+                <div class="form-icon">
+                    ✎
+                </div>
+
+                <div>
+                    <h4>Contact Details</h4>
+
+                    <p>
+                        Modify the information below and save your changes.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- EDIT FORM -->
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="row">
+
+                    <!-- NAME -->
+                    <div class="col-md-6 form-group">
+
+                        <label for="name-field" class="form-label">
+                            Full Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            id="name-field"
+                            class="form-control"
+                            placeholder="Enter full name"
+                            value="{{ editappointment.name }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="col-md-6 form-group">
+
+                        <label for="email-field" class="form-label">
+                            Email Address <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            id="email-field"
+                            class="form-control"
+                            placeholder="Enter email address"
+                            value="{{ editappointment.email }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+                    <div class="col-md-12 form-group">
+
+                        <label for="subject-field" class="form-label">
+                            Subject <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            name="subject"
+                            id="subject-field"
+                            class="form-control"
+                            placeholder="Enter contact subject"
+                            value="{{ editappointment.subject }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+                    <div class="col-md-12 form-group">
+
+                        <label for="message-field" class="form-label">
+                            Message <span class="required">*</span>
+                        </label>
+
+                        <textarea
+                            name="message"
+                            id="message-field"
+                            class="form-control"
+                            placeholder="Enter contact message"
+                            required
+                        >{{ editappointment.message }}</textarea>
+
+                    </div>
+
+
+                    <!-- INFORMATION NOTE -->
+                    <div class="col-md-12">
+
+                        <div class="info-note">
+                            <strong>Note:</strong>
+                            Please review all information carefully before saving.
+                            Your changes will update the existing contact record.
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="col-md-12">
+
+                        <div class="form-actions">
+
+                            <a href="/show" class="btn-cancel">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn-update">
+                                Save Changes →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            © 2026 MtaaBiz. All Rights Reserved.
+        </footer>
+
+    </div>
+
+
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
