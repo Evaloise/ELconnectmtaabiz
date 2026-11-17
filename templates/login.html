@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MtaaBiz | Login</title>
+
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary: #7e0355;
+            --primary-dark: #58023c;
+            --background: #f7f5f8;
+            --text-dark: #24202a;
+            --text-muted: #85808b;
+            --border: #e9e5eb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px 15px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 610px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 55px rgba(42, 20, 38, 0.09);
+        }
+
+        /* Image section */
+        .login-image {
+            height: 100%;
+            min-height: 610px;
+            position: relative;
+            overflow: hidden;
+            background: var(--primary);
+        }
+
+        .login-image img {
+            width: 100%;
+            height: 100%;
+            min-height: 610px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(45, 0, 31, 0.85),
+                rgba(126, 3, 85, 0.12)
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 45px;
+            color: white;
+        }
+
+        .image-overlay h2 {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .image-overlay p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.85);
+            max-width: 330px;
+        }
+
+        /* Form section */
+        .login-content {
+            padding: 65px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 45px;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(126, 3, 85, 0.09);
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 750;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        .welcome-text {
+            margin-bottom: 32px;
+        }
+
+        .welcome-text h1 {
+            font-size: 29px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.8px;
+        }
+
+        .welcome-text p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+            color: #46404a;
+        }
+
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 23px;
+        }
+
+        .input-group-custom .form-control {
+            height: 53px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 12px 15px;
+            font-size: 14px;
+            background: #fcfbfd;
+            transition: all 0.25s ease;
+        }
+
+        .input-group-custom .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(126, 3, 85, 0.09);
+            background: white;
+        }
+
+        .form-control::placeholder {
+            color: #aaa4ae;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: flex-end;
+            margin: -5px 0 25px;
+        }
+
+        .forgot-link {
+            font-size: 13px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-radius: 9px;
+            background: var(--primary);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(126, 3, 85, 0.2);
+        }
+
+        .login-btn:focus-visible,
+        .forgot-link:focus-visible {
+            outline: 3px solid rgba(126, 3, 85, 0.3);
+            outline-offset: 3px;
+        }
+
+        .login-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .security-note {
+            text-align: center;
+            margin-top: 22px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .security-note i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 767px) {
+            .login-wrapper {
+                padding: 20px 12px;
+            }
+
+            .login-card {
+                max-width: 480px;
+                min-height: auto;
+            }
+
+            .login-image {
+                display: none;
+            }
+
+            .login-content {
+                padding: 45px 28px;
+            }
+
+            .brand {
+                margin-bottom: 35px;
+            }
+
+            .welcome-text h1 {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .login-content {
+                padding: 35px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="login-wrapper">
+
+    <div class="login-card">
+
+        <div class="row g-0 h-100">
+
+            <!-- Left Image Section -->
+            <div class="col-md-6">
+
+                <div class="login-image">
+
+                    <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                        alt="Professional workspace">
+
+                    <div class="image-overlay">
+
+                        <h2>Welcome to MtaaBiz.</h2>
+
+                        <p>
+                            Manage your business, stay organised and
+                            keep everything running smoothly from one place.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Login Section -->
+            <div class="col-md-6">
+
+                <div class="login-content">
+
+                    <!-- Brand -->
+                    <div class="brand">
+
+                        <div class="brand-icon">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                        </div>
+
+                        <h2 class="brand-name">
+                            Mtaa<span>Biz</span>
+                        </h2>
+
+                    </div>
+
+                    <!-- Welcome -->
+                    <div class="welcome-text">
+
+                        <h1>Welcome back!</h1>
+
+                        <p>
+                            Sign in to access your account and continue
+                            where you left off.
+                        </p>
+
+                    </div>
+
+                    <!-- Login Form -->
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <!-- Username -->
+                        <div class="input-group-custom">
+
+                            <label for="username" class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                class="form-control"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                        <!-- Password -->
+                        <div class="input-group-custom">
+
+                            <label for="password" class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                        </div>
+
+                        <!-- Forgot Password -->
+                        <div class="login-options">
+
+                            <a href="#!" class="forgot-link">
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+                        <!-- Login Button -->
+                        <button type="submit" class="login-btn">
+
+                            Sign In
+                            <i class="bi bi-arrow-right ms-2"></i>
+
+                        </button>
+
+                    </form>
+
+                    <!-- Security Note -->
+                    <div class="security-note">
+
+                        <i class="bi bi-shield-lock-fill"></i>
+                        Your account information is protected.
+
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="login-footer">
+
+                        &copy; 2026 MtaaBiz. All rights reserved.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Bootstrap JS -->
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
